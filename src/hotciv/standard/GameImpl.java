@@ -30,17 +30,37 @@ import hotciv.framework.*;
 */
 
 public class GameImpl implements Game {
-  public Tile getTileAt( Position p ) { return null; }
+
+  protected Player playerInTurn = Player.RED;
+
+  public Tile getTileAt( Position p ) {
+    return new TileImpl();
+  }
+
   public Unit getUnitAt( Position p ) { return null; }
-  public City getCityAt( Position p ) { return null; }
-  public Player getPlayerInTurn() { return null; }
+
+  public City getCityAt( Position p ) {
+    return new CityImpl();
+  }
+
+  public Player getPlayerInTurn() { return playerInTurn; }
+
   public Player getWinner() { return null; }
+
   public int getAge() { return 0; }
+
   public boolean moveUnit( Position from, Position to ) {
     return false;
   }
-  public void endOfTurn() {}
+
+  public void endOfTurn() {
+    playerInTurn = Player.BLUE;
+  }
+
   public void changeWorkForceFocusInCityAt( Position p, String balance ) {}
+
   public void changeProductionInCityAt( Position p, String unitType ) {}
+
   public void performUnitActionAt( Position p ) {}
+
 }

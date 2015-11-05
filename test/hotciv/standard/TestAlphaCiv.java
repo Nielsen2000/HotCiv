@@ -35,6 +35,7 @@ import static org.hamcrest.CoreMatchers.*;
 
 */
 public class TestAlphaCiv {
+
   private Game game;
   /** Fixture for alphaciv testing. */
   @Before
@@ -52,4 +53,26 @@ public class TestAlphaCiv {
     assertThat("The city should be owned by RED player",
                p, is(Player.RED));
   }
+
+  @Test
+  public void shouldHaveOceanTileAt1_0(){
+    Tile t = game.getTileAt(new Position(1,0));
+    assertThat("There should be an ocean tile at (1,0)", t.getTypeString(), is(GameConstants.OCEANS));
+  }
+
+  @Test
+  public void shouldBeRedsTurnInTurn1(){
+    // The game is freshly created, so it is currently turn 1
+    assertThat("In turn one player red should be in turn", game.getPlayerInTurn(), is(Player.RED));
+  }
+
+  @Test
+  public void afterItHasBeenRedsTurnItShouldBeBluesTurn(){
+    assertThat("It is reds turn", game.getPlayerInTurn(), is(Player.RED));
+    game.endOfTurn();
+    assertThat("It is blues turn", game.getPlayerInTurn(), is(Player.BLUE));
+  }
+
+
+
 }
