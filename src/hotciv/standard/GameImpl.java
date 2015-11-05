@@ -2,6 +2,8 @@ package hotciv.standard;
 
 import hotciv.framework.*;
 
+import java.util.ArrayList;
+
 /** Skeleton implementation of HotCiv.
  
    This source code is from the book 
@@ -32,6 +34,7 @@ import hotciv.framework.*;
 public class GameImpl implements Game {
 
   protected Player playerInTurn = Player.RED;
+  protected int Age = -4000;
 
   public Tile getTileAt( Position p ) {
     return new TileImpl();
@@ -40,14 +43,23 @@ public class GameImpl implements Game {
   public Unit getUnitAt( Position p ) { return null; }
 
   public City getCityAt( Position p ) {
-    return new CityImpl();
+    if (p.getColumn() == 1 && p.getRow() == 1){
+      return new CityImpl(Player.RED);
+    }
+    else{
+      return new CityImpl(Player.BLUE);
+    }
   }
 
   public Player getPlayerInTurn() { return playerInTurn; }
 
-  public Player getWinner() { return null; }
+  public Player getWinner() {
+    return Player.RED;
+  }
 
-  public int getAge() { return 0; }
+  public int getAge() {
+    return Age;
+  }
 
   public boolean moveUnit( Position from, Position to ) {
     return false;
@@ -55,6 +67,7 @@ public class GameImpl implements Game {
 
   public void endOfTurn() {
     playerInTurn = Player.BLUE;
+    Age+=100;
   }
 
   public void changeWorkForceFocusInCityAt( Position p, String balance ) {}

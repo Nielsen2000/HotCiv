@@ -4,11 +4,15 @@ package hotciv.framework;
  * Created by Johnny Hansen on 05-11-2015.
  */
 public class CityImpl implements City {
-
     /** return the owner of this city.
      * @return the player that controls this city.
      */
-    public Player getOwner(){ return Player.RED; };
+    protected Player owner;
+    public CityImpl(Player owner){
+        this.owner = owner;
+    }
+
+    public Player getOwner(){ return owner; };
 
     /** return the size of the population.
      * @return population size.

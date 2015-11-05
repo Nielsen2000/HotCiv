@@ -55,6 +55,17 @@ public class TestAlphaCiv {
   }
 
   @Test
+  public void shouldHaveBlueCityAt4_1() {
+    City c = game.getCityAt(new Position(4,1));
+    assertThat("There should be a city at (4,1)",
+            c, is(notNullValue()));
+
+    Player p = c.getOwner();
+    assertThat("The city should be owned by BLUE player",
+            p, is(Player.BLUE));
+  }
+
+  @Test
   public void shouldHaveOceanTileAt1_0(){
     Tile t = game.getTileAt(new Position(1,0));
     assertThat("There should be an ocean tile at (1,0)", t.getTypeString(), is(GameConstants.OCEANS));
@@ -73,6 +84,22 @@ public class TestAlphaCiv {
     assertThat("It is blues turn", game.getPlayerInTurn(), is(Player.BLUE));
   }
 
+  @Test
+  public void inTurn1ItIsYear4000BC(){
+    assertThat("It is year 4000BC", game.getAge(), is(-4000));
+  }
 
-
+  @Test
+  public void inTurn2ItIsYear3900BC(){
+    game.endOfTurn();
+    assertThat("It is year 3900BC", game.getAge(), is(-3900));
+  }
+  @Test
+  public void inYear3000BCRedWins(){
+    for (int a = 0; a<10; a++) {
+      game.endOfTurn();
+    }
+    assertThat("It is year 3000BC", game.getAge(), is(-3000));
+    assertThat("Red wins in year 3000BC", game.getWinner(), is(Player.RED));
+  }
 }
